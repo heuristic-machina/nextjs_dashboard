@@ -15,6 +15,7 @@ const FormSchema = z.object({
 });
  
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 //pass data to createInvoice to validate the types
 export async function createInvoice(formData: FormData) {
@@ -25,7 +26,6 @@ export async function createInvoice(formData: FormData) {
     });
     // convert to cents to eliminate JS floating-point errors in db
     const amountInCents = amount * 100;
-    //sql date format
     const date = new Date().toISOString().split('T')[0];
 
     await sql`
@@ -37,3 +37,22 @@ export async function createInvoice(formData: FormData) {
     // Test it out:
     // console.log(rawFormData);
 }
+
+export async function updateInvoice(id: string, formData: FormData) {
+    const { customerId, amount, status } = UpdateInvoice.parse({
+      customerId: formData.get('customerId'),
+      amount: formData.get('amount'),
+      status: formData.get('status'),
+    });
+   
+    const amountInCents = amount * 100;
+   
+    await sql`
+      UPDATE invoices
+      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+      WHERE id = ${id}
+    `;
+   
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+  }
