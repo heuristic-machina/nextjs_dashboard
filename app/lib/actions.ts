@@ -38,6 +38,7 @@ export async function createInvoice(formData: FormData) {
     // console.log(rawFormData);
 }
 
+// extract data from formData then validate
 export async function updateInvoice(id: string, formData: FormData) {
     const { customerId, amount, status } = UpdateInvoice.parse({
       customerId: formData.get('customerId'),
@@ -52,7 +53,13 @@ export async function updateInvoice(id: string, formData: FormData) {
       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
-   
+    // clears client cache and make new server request
     revalidatePath('/dashboard/invoices');
+    // redirect to invoice page
     redirect('/dashboard/invoices');
+  }
+  
+  export async function deleteInvoice(id: string) {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
   }
