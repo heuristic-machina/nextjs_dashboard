@@ -183,7 +183,7 @@ export async function fetchCustomers() {
         id,
         name
       FROM customers
-      ORDER BY name ASC
+      ORDER BY name DESC
     `;
 
     const customers = data.rows;
