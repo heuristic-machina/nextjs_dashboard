@@ -12,11 +12,8 @@ export default function Page() {
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
         <AcmeLogo />
       </div>
-      {/* <div className="mt-4 flex-1 items-center flex-col gap-4 md:flex-row"> */}
-      <div className="mt-10 flex flex-col items-start  gap-4 md:flex-row">
-      {/* <div className="flex w-full flex-col md:col-span-4"> */}
-        <div className="flex flex-col mt-25 ml-8 mr-6 bg-gray-500 gap-6 rounded-lg pt-12 pl-6 md:px-20 pb-8">
-        {/* <div className="flex flex-col bg-gray-500 gap-6 rounded-lg px-6 py-10 md:w-2/5 md:px-20"> */}
+      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
+      <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-500 px-6 py-10 md:w-2/5 md:px-20">
           <p className={`${lusitana.className} text-xl text-white md:text-3xl md:leading-normal`}>
             <strong>Welcome to Acme.</strong> This is the example for the{' '}
             <a href="https://nextjs.org/learn/" className="text-blue-900">
@@ -31,10 +28,7 @@ export default function Page() {
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>
         </div>
-        {/* <div className="flex items-center p-6 md:w-3/5 md:px-28 md:py-12"> */}
-        {/* <div className="flex w-full flex-col md:col-span-4"> */}
-        <div className="flex items-stretch flex-col justify-between rounded-xl mr-4 bg-gray-50 p-4">
-        {/* <div className='py-12'> */}
+        <div className="flex items-center p-6 md:w-3/5 md:px-28 md:py-12">
           {/* Add Hero Images Here */}
           <Image src="/hero-desktop.png"
           width={1000}
@@ -42,7 +36,6 @@ export default function Page() {
           className="hidden md:block"
           alt="Screenshots of the dashboard project showing desktop version"
           />
-          {/* </div> */}
           <div className='py-8"'>
           <Image src="/hero-mobile.png"
           width={560}
@@ -52,8 +45,6 @@ export default function Page() {
           </div>
         </div>
         </div>
-        {/* </div> */}
-      {/* </div> */}
     </main>
   );
 }
