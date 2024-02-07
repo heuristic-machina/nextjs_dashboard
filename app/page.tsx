@@ -14,7 +14,7 @@ export default function Page() {
       {/* <div className="mt-4 flex-1 items-center flex-col gap-4 md:flex-row"> */}
       <div className="mt-10 flex flex-col items-start  gap-4 md:flex-row">
       {/* <div className="flex w-full flex-col md:col-span-4"> */}
-        <div className="flex flex-col mt-25 ml-8 mr-6 bg-gray-500 gap-6 rounded-lg pt-12 md:px-20 pb-8">
+        <div className="flex flex-col mt-25 ml-8 mr-6 bg-gray-500 gap-6 rounded-lg pt-12 pl-6 md:px-20 pb-8">
         {/* <div className="flex flex-col bg-gray-500 gap-6 rounded-lg px-6 py-10 md:w-2/5 md:px-20"> */}
           <p className={`${lusitana.className} text-xl text-white md:text-3xl md:leading-normal`}>
             <strong>Welcome to Acme.</strong> This is the example for the{' '}
