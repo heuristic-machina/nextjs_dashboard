@@ -1,8 +1,6 @@
 import CustomersTable from '@/app/ui/customers/table';
-import Search from '@/app/ui/search';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import { lusitana } from '@/app/ui/fonts';
 export const metadata: Metadata = {
   title: 'Customers',
 };

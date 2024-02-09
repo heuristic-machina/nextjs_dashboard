@@ -1,4 +1,4 @@
-import Pagination from '@/app/ui/pagination';
+import Pagination from '@/app/ui/invoices/pagination';
 import { fetchInvoicesPages } from '@/app/lib/data';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/invoices/table';
