@@ -42,7 +42,7 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
-// server-side validation
+// zod validation
 // this is temporary until @types/react-dom is updated
 export type State = {
     errors?: {
@@ -56,10 +56,10 @@ export type State = {
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-// pass data to createInvoice to validate the types
-// server-side validation
+// state passed from useFormState in the <Form/> component
+// pass formData to createInvoice
 export async function createInvoice(prevState: State, formData: FormData) {
-    // Validate form fields using Zod
+    // zod validation
     const validatedFields = CreateInvoice.safeParse({
         // const { customerId, amount, status } = CreateInvoice.parse({
             customerId: formData.get('customerId'),
@@ -85,13 +85,13 @@ export async function createInvoice(prevState: State, formData: FormData) {
         } catch (error) {
             return {message: 'Database Error: Failed to Create Invoice.',};
         }
-        // api revalidates next.js cache
+        // clear cache & trigger new server request
         revalidatePath('/dashboard/invoices');
         redirect('/dashboard/invoices');
 
     }
     
-    // extract data from formData then validate
+// extract data from formData then validate
 export async function updateInvoice(id: string, prevState: State, formData: FormData) {
     const validatedFields = UpdateInvoice.safeParse({
       customerId: formData.get('customerId'),
@@ -117,7 +117,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     } catch (error) {
         return {message: "Database Error: Failed to Update Invoice"}
     }
-    // clears client cache and make new server request
+    // clear cache & trigger new server request
     revalidatePath('/dashboard/invoices');
     // redirect to invoice page
     redirect('/dashboard/invoices');
@@ -127,6 +127,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     // throw new Error('Failed to Delete Invoice');
     try{
         await sql`DELETE FROM invoices WHERE id = ${id}`;
+        
         //triggers new server request and re-renders table'
         revalidatePath('/dashboard/invoices');
         return {message: "Deleted Invoice."};

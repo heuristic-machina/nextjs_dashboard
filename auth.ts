@@ -22,18 +22,21 @@ export const { auth, signIn, signOut } = NextAuth({
     Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
-          .object({ email: z.string().email(), password: z.string().min(6) })
+        // zod validates user in db
+        .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
  
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
+          // query the db for user
           const user = await getUser(email);
           if (!user) return null;
+          // check if passwords match
           const passwordsMatch = await bcrypt.compare(password, user.password);
- 
+          
           if (passwordsMatch) return user;
         }
- 
+        // password did not match
         console.log('Invalid credentials');
         return null;
       },

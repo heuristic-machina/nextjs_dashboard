@@ -1,4 +1,4 @@
-import Form from '@/app/ui/invoices/edit-form';
+import EditInvoiceForm from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
@@ -7,10 +7,15 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Edit Invoice',
 };
- 
+
+// pre-populate form from db using {id} prop
+// access {id} using {params} prop
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
+
+    // promise.all calls in parallel
     const [invoice, customers] = await Promise.all([
+        // pass in id as argument
         fetchInvoiceById(id),
         fetchCustomers(),
       ]);
@@ -32,7 +37,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           },
         ]}
       />
-      <Form invoice={invoice} customers={customers} />
+      <EditInvoiceForm invoice={invoice} customers={customers} />
     </main>
   );
 }

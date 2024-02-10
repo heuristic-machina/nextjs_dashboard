@@ -8,7 +8,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/app/ui/button';     
 import { updateInvoice } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 
@@ -20,9 +20,12 @@ export default function EditInvoiceForm({
   customers: CustomerField[];
 }) {
   const initialState = { message: null, errors: {} };
+
+  // pass id to server action to update db with .bind
+  // .bind ensures encoding
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
   const [state, dispatch] = useFormState(updateInvoiceWithId, initialState);
-  console.log(state);
+  // console.log(state);
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

@@ -13,19 +13,20 @@ export function CreateInvoice() {
     </Link>
   );
 }
-
+// passes {id} prop from the db to <UpdateInvoice/>
 export function UpdateInvoice({ id }: { id: string }) {
   return (
     <Link
-      // use template literals to link to a dynamic route segment
-      href={`/dashboard/invoices/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+    // template literal links to dynamic route segment
+    href={`/dashboard/invoices/${id}/edit`}
+    className="rounded-md border p-2 hover:bg-gray-100"
     >
       <PencilIcon className="w-5" />
     </Link>
   );
 }
 
+// pass id to server action using .bind
 export function DeleteInvoice({ id }: { id: string }) {
   const deleteInvoiceWithId = deleteInvoice.bind(null, id);
   return (

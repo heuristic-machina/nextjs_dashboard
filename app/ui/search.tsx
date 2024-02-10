@@ -9,17 +9,25 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  // function handleSearch(term: string) {
-    const handleSearch = useDebouncedCallback((term) => {
-      console.log(`Searching...${term}`);
+  // DebouncedCallback() is a function rate limiter
+  const handleSearch = useDebouncedCallback((term) => {
+    console.log(`Searching...${term}`);
+      // function handleSearch(term: string) {
       // console.log(term);
+
+      // URLSearchParams allows use of params string instead of complex string literal
       const params = new URLSearchParams(searchParams);
+
+      // conditional based on user input
+      // handleSearch resets page to 1 when user types new query
       params.set('page', '1');
       if (term) {
         params.set('query', term);
       } else {
         params.delete('query');
       }
+
+      // useRouter() enables navigation from the original path to the user's input in url-friendly format
       replace(`${pathname}?${params.toString()}`);
 
     }, 300);
@@ -35,6 +43,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
+        // defaultValue ensures input is in-sync with url and will be populated when sharing
         defaultValue={searchParams.get('query')?.toString()}
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />

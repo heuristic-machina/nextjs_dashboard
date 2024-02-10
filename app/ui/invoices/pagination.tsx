@@ -6,14 +6,21 @@ import Link from 'next/link';
 import { generatePagination } from '@/app/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+// data is fetched from the db and passed as totalPages prop 
 export default function Pagination({ totalPages }: { totalPages: number }) {
+
+  // hooks get current page and sets new page
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
+  // createPageURL creates new instance of current search parameters
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
+    
+    // updates the page parameter to the provided page number
     params.set('page', pageNumber.toString());
+    // constructs full url using pathname and updated search parameters
     return `${pathname}?${params.toString()}`;
   };
 
@@ -21,8 +28,6 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-
-
       <div className="inline-flex">
         <PaginationArrow
           direction="left"

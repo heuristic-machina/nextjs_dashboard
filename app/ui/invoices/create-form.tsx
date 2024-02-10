@@ -13,6 +13,9 @@ import { useFormState } from 'react-dom';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState = { message: null, errors: {} };
+  
+  // useFormState shows form errors
+  // pass state to server actions `PrevState`
   const [state, dispatch] = useFormState(createInvoice, initialState);
   // console.log(state);
   return (

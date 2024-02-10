@@ -12,6 +12,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
 
 export default function LoginForm() {
+  // useFormState calls server action and handles form errors
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   return (
     <form action={dispatch} className="space-y-3">
@@ -81,6 +82,7 @@ export default function LoginForm() {
 }
 
 function LoginButton() {
+  // useFormStatus handles pending status of form
   const { pending } = useFormStatus();
  
   return (
